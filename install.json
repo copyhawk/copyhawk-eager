@@ -1,0 +1,44 @@
+{
+  "resources": {
+    "body": [
+      {
+        "type": "script",
+        "src": "./polyfill.min.js",
+        "if": "options.backwardCompatible"
+      },
+      {
+        "type": "script",
+        "src": "./eyas.js"
+      }
+    ]
+  },
+  "options": {
+    "properties": {
+      "token": {
+        "title": "Site Token",
+        "description": "Enter the token provided to you by Copyhawk",
+        "type": "string"
+      },
+      "defaultLanguage": {
+        "title": "Default Language",
+        "description": "Enter the default language for your site",
+        "type": "string"
+      },
+      "supportedLanguages": {
+        "title": "Supported Languages",
+        "description": "Enter the languages that your site supports",
+        "type": "string"
+      },
+      "environment": {
+        "title": "Environment",
+        "description": "Staging or Production - anything not matching staging will be considered production",
+        "type": "string"
+      },
+      "backwardCompatible": {
+        "title": "Polyfill Support",
+        "description": "Enter true if you need to add polyfill support for older browsers",
+        "type": "boolean"
+      }
+    }
+  }
+}
