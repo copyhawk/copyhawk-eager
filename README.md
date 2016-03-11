@@ -4,6 +4,7 @@ Copyhawk simplifies content management for small content.
 
 Setup Copyhawk using Eager. Add your token and default language into Eager' dashboard. You can find those on Copyhawk' script pages.
 After Copyhawk is setup all you have to do is to add Copyhawk tags wherever you want your content to appear.
+
 Copyhawk tags look like this: 
 
 `<c-hawk data-label="LABEL"></c-hawk>`
