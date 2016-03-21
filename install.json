@@ -1,10 +1,10 @@
 {
   "resources": {
-    "body": [
+    "head": [
       {
         "type": "script",
         "src": "./polyfill.min.js",
-        "if": "options.backwardCompatible"
+        "if": "options.advancedOptions.backwardCompatible"
       },
       {
         "type": "script",
@@ -17,27 +17,85 @@
       "token": {
         "title": "Site Token",
         "description": "Enter the token provided to you by Copyhawk",
-        "type": "string"
+        "type": "string",
+        "placeholder": "56cc6ec24ddf06d61e9d5ba5",
+        "order": 1
       },
-      "defaultLanguage": {
-        "title": "Default Language",
-        "description": "Enter the default language for your site",
-        "type": "string"
+      "regions": {
+        "title": "Regions",
+        "description": "Text on the page to be inserted or replaced using Copyhawk",
+        "type": "array",
+        "order": 2,
+        "items": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "title": "Location",
+              "type": "object",
+              "format": "element",
+              "description": "Where on the page you would like this Copyhawk text to be inserted",
+              "order": 1
+            },
+            "label": {
+              "title": "Copyhawk Label",
+              "type": "string",
+              "description": "The field label provided by Copyhawk on the <a href='https://app.copyhawk.co/#/home' target='_blank'>Copy Configuration Page</a>.",
+              "order": 2
+            }
+          }
+        }
       },
-      "supportedLanguages": {
-        "title": "Supported Languages",
-        "description": "Enter the languages that your site supports",
-        "type": "string"
+      "showAdvancedOptions": {
+        "title": "Show Advanced Options",
+        "type": "boolean",
+        "order": 3
       },
-      "environment": {
-        "title": "Environment",
-        "description": "Staging or Production - anything not matching staging will be considered production",
-        "type": "string"
-      },
-      "backwardCompatible": {
-        "title": "Polyfill Support",
-        "description": "Enter true if you need to add polyfill support for older browsers",
-        "type": "boolean"
+      "advancedOptions": {
+        "title": "Advanced Options",
+        "type": "object",
+        "showIf": "showAdvancedOptions",
+        "order": 4,
+        "properties": {
+          "defaultLanguage": {
+            "title": "Default Language",
+            "description": "Enter the default language for your site",
+            "type": "string",
+            "default": "en",
+            "order": 1
+          },
+          "supportedLanguages": {
+            "title": "Supported Languages",
+            "description": "Enter the languages that your site supports",
+            "type": "array",
+            "items": {
+              "title": "Language Code",
+              "type": "string"
+            },
+            "default": ["en"],
+            "order": 2
+          },
+          "environment": {
+            "title": "Environment",
+            "type": "string",
+            "enum": [
+              "staging",
+              "production"
+            ],
+            "enumNames": {
+              "staging": "Staging",
+              "production": "Production"
+            },
+            "default": "production",
+            "order": 3
+          },
+          "backwardCompatible": {
+            "title": "Polyfill Support",
+            "description": "Uncheck for a slight performance boost if you don’t need your site to support older browsers (like Internet Explorer)",
+            "type": "boolean",
+            "default": true,
+            "order": 4
+          }
+        }
       }
     }
   }
