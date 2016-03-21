@@ -11,7 +11,9 @@
     return "[ch-error: missing label "+label+" ]";
   }
 
-  function getText(preview, token, label, lang, element) {
+  function getText(label, element) {
+    var staging = options.advancedOptions.environment === 'staging';
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -22,9 +24,9 @@
     }
 
     var url = "//app.copyhawk.co/api/";
-    if (preview)
+    if (staging)
       url += 'p/staging.';
-    url += token + "/" + label + "?lang=" + lang + "&cache=" + Math.random().toString(36);
+    url += options.token + "/" + label + "?lang=" + options.advancedOptions.defaultLanguage + "&cache=" + Math.random().toString(36);
 
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader("Content-Type", "text/plain");
@@ -34,11 +36,9 @@
   function loadTags() {
     var tags = document.querySelectorAll('c-hawk');
 
-    var preview = options.advancedOptions.environment === 'staging';
-
     if (tags) {
       for (var i=tags.length; i--;){
-        getText(preview, options.token, tags[i].dataset.label, options.advancedOptions.defaultLanguage, tags[i]);
+        getText(tags[i].dataset.label, tags[i]);
       }
     }
   }
@@ -62,5 +62,13 @@
   }
 
   document.addEventListener('DOMContentLoaded', render);
+
+  if (document.registerElement){
+    var cHawkProto = Object.create(HTMLElement.prototype);
+    cHawkProto.createdCallback = function() {
+      getText(this.dataset.label, this);
+    }
+    document.registerElement("c-hawk", {prototype: cHawkProto});
+  }
 
 })();
