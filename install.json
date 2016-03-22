@@ -4,7 +4,7 @@
       {
         "type": "script",
         "src": "./polyfill.min.js",
-        "if": "options.advancedOptions.backwardCompatible"
+        "if": "!options.advancedOptions.notBackwardCompatible"
       },
       {
         "type": "script",
@@ -88,11 +88,11 @@
             "default": "production",
             "order": 3
           },
-          "backwardCompatible": {
-            "title": "Polyfill Support",
-            "description": "Uncheck for a slight performance boost if you don’t need your site to support older browsers (like Internet Explorer)",
+          "notBackwardCompatible": {
+            "title": "Skip Polyfill Support",
+            "description": "Check for a slight performance boost if you don’t need your site to support older browsers (like Internet Explorer), or if you already include a Web Components polyfill.",
             "type": "boolean",
-            "default": true,
+            "default": false,
             "order": 4
           }
         }

@@ -26,7 +26,7 @@
     var url = "//app.copyhawk.co/api/";
     if (staging)
       url += 'p/staging.';
-    url += options.token + "/" + label + "?lang=" + options.advancedOptions.defaultLanguage + "&cache=" + Math.random().toString(36);
+    url += options.token + "/" + label + "?lang=" + (options.advancedOptions.defaultLanguage || 'en') + "&cache=" + Math.random().toString(36);
 
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader("Content-Type", "text/plain");
