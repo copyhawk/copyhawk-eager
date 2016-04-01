@@ -12,6 +12,9 @@
   }
 
   function getText(label, element) {
+    if (!label || !element)
+      return;
+
     var staging = options.advancedOptions.environment === 'staging';
 
     var xhttp = new XMLHttpRequest();
