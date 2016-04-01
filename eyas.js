@@ -36,32 +36,46 @@
     xhttp.send();
   }
 
-  function loadTags() {
-    var tags = document.querySelectorAll('c-hawk');
+  var regionEls = [];
+  function writeTag(i){
+    var region = options.regions[i];
+    regionEls[i] = Eager.createElement(region.location, regionEls[i]);
 
-    if (tags) {
-      for (var i=tags.length; i--;){
-        getText(tags[i].dataset.label, tags[i]);
-      }
-    }
+    var child = document.createElement('c-hawk');
+    child.setAttribute('data-label', region.label);
+    regionEls[i].appendChild(child);
+
+    return child;
   }
 
-  var regionEls = [];
+  var writeAttempts = 0;
   function writeTags() {
+    var allWritten = true;
+    writeAttempts++;
+
     for (var i=options.regions.length; i--;){
       var region = options.regions[i];
 
-      regionEls[i] = Eager.createElement(region.location, regionEls[i]);
+      if (region.written)
+        continue;
 
-      var child = document.createElement('c-hawk');
-      child.dataset.label = region.label;
-      regionEls[i].appendChild(child);
+      if (document.querySelector(region.location.selector)){
+        tag = writeTag(i);
+        getText(tag.getAttribute('data-label'), tag);
+
+        region.written = true;
+      } else {
+        allWritten = false;
+      }
+    }
+
+    if (!allWritten && writeAttempts < 10){
+      setTimeout(writeTags, 50 * writeAttempts);
     }
   }
 
   function render() {
     writeTags();
-    loadTags();
   }
 
   document.addEventListener('DOMContentLoaded', render);
